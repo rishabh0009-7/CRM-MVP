@@ -167,9 +167,9 @@ export default function LandingPage() {
             <div className="flex items-center">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">G</span>
+                  <span className="text-white font-bold text-sm">F</span>
                 </div>
-                <span className="text-xl font-bold text-gray-900">Growio</span>
+                <span className="text-xl font-bold text-gray-900">FlowCRM</span>
               </div>
               <div className="hidden md:flex ml-10 space-x-8">
                 <a href="#" className="text-gray-600 hover:text-gray-900">Software</a>
@@ -267,10 +267,10 @@ export default function LandingPage() {
                 <Line data={demoChartData} options={chartOptions} />
               </div>
               <div className="grid grid-cols-4 gap-2">
-                <div className="h-8 bg-green-500 rounded"></div>
-                <div className="h-6 bg-blue-500 rounded"></div>
-                <div className="h-10 bg-purple-500 rounded"></div>
-                <div className="h-7 bg-orange-500 rounded"></div>
+                <div className="h-8 bg-green-500 rounded" style={{backgroundColor: '#22c55e'}}></div>
+                <div className="h-6 bg-blue-500 rounded" style={{backgroundColor: '#3b82f6'}}></div>
+                <div className="h-10 bg-purple-500 rounded" style={{backgroundColor: '#8b5cf6'}}></div>
+                <div className="h-7 bg-orange-500 rounded" style={{backgroundColor: '#f59e0b'}}></div>
               </div>
             </motion.div>
           </div>
@@ -578,9 +578,9 @@ export default function LandingPage() {
             <div className="md:col-span-2">
               <div className="flex items-center space-x-2 mb-6">
                 <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">G</span>
+                  <span className="text-white font-bold text-sm">F</span>
                 </div>
-                <span className="text-2xl font-bold">Growio</span>
+                <span className="text-2xl font-bold">FlowCRM</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 The comprehensive CRM platform that helps freelancers and teams manage clients, track proposals, and grow their business efficiently.
@@ -621,7 +621,7 @@ export default function LandingPage() {
           
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 Growio. All rights reserved.
+              © 2024 FlowCRM. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white text-sm">Privacy Policy</a>

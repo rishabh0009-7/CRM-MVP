@@ -233,23 +233,24 @@ export default function Proposals() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-8 bg-gray-50 min-h-screen">
         {/* Header */}
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Proposals</h1>
-            <p className="text-gray-500">
-              Create, track, and manage your client proposals.
-            </p>
-          </div>
+        <div className="bg-white border-b border-gray-200 px-6 py-8">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Proposals</h1>
+              <p className="text-lg text-gray-600">
+                Create, track, and manage your client proposals
+              </p>
+            </div>
           
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button onClick={resetForm}>
-                <Plus className="mr-2 h-4 w-4" />
-                Add Proposal
-              </Button>
-            </DialogTrigger>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button onClick={resetForm} className="bg-green-600 hover:bg-green-700 text-white border-0 rounded-xl px-6 py-3 text-base font-medium">
+                  <Plus className="mr-2 h-5 w-5" />
+                  Add Proposal
+                </Button>
+              </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>
@@ -329,7 +330,7 @@ export default function Proposals() {
                     onChange={(e) => setFormData({ ...formData, follow_up_date: e.target.value })}
                   />
                 </div>
-                <Button type="submit" disabled={isLoading} className="w-full">
+                <Button type="submit" disabled={isLoading} className="w-full bg-green-600 hover:bg-green-700 text-white border-0 rounded-xl py-3">
                   {isLoading 
                     ? (editingProposal ? 'Updating...' : 'Creating...') 
                     : (editingProposal ? 'Update Proposal' : 'Create Proposal')
@@ -338,16 +339,18 @@ export default function Proposals() {
               </form>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
 
         {/* Search and Filter */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Search & Filter</CardTitle>
-            <CardDescription>
-              Find proposals by title, client, or status
-            </CardDescription>
-          </CardHeader>
+        <div className="px-6">
+          <Card className="bg-white border-0 shadow-lg rounded-2xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-bold text-gray-900">Search & Filter</CardTitle>
+              <CardDescription className="text-gray-600">
+                Find proposals by title, client, or status
+              </CardDescription>
+            </CardHeader>
           <CardContent>
             <div className="flex space-x-4">
               <div className="relative flex-1">
@@ -356,11 +359,11 @@ export default function Proposals() {
                   placeholder="Search proposals..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 border-gray-300 rounded-xl focus:border-green-500 focus:ring-green-500"
                 />
               </div>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-48">
+                <SelectTrigger className="w-48 border-gray-300 rounded-xl focus:border-green-500 focus:ring-green-500">
                   <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -381,10 +384,10 @@ export default function Proposals() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Card>
-            <CardHeader>
-              <CardTitle>All Proposals ({filteredProposals.length})</CardTitle>
-              <CardDescription>
+          <Card className="bg-white border-0 shadow-lg rounded-2xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-bold text-gray-900">All Proposals ({filteredProposals.length})</CardTitle>
+              <CardDescription className="text-gray-600">
                 Track and manage your proposal pipeline
               </CardDescription>
             </CardHeader>
@@ -392,10 +395,10 @@ export default function Proposals() {
               {filteredProposals.length === 0 ? (
                 <div className="text-center py-8">
                   <FileText className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium text-muted-foreground">
+                  <h3 className="text-lg font-medium text-gray-600">
                     {searchTerm || statusFilter !== 'all' ? 'No proposals found' : 'No proposals yet'}
                   </h3>
-                  <p className="text-sm text-muted-foreground mt-2">
+                  <p className="text-sm text-gray-500 mt-2">
                     {searchTerm || statusFilter !== 'all' 
                       ? 'Try adjusting your search or filter'
                       : 'Create your first proposal to get started'
@@ -463,6 +466,7 @@ export default function Proposals() {
                               variant="ghost"
                               size="icon"
                               onClick={() => handleEdit(proposal)}
+                              className="hover:bg-green-100 hover:text-green-600 rounded-xl"
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
@@ -470,6 +474,7 @@ export default function Proposals() {
                               variant="ghost"
                               size="icon"
                               onClick={() => handleDelete(proposal.id)}
+                              className="hover:bg-red-100 hover:text-red-600 rounded-xl"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -483,6 +488,7 @@ export default function Proposals() {
             </CardContent>
           </Card>
         </motion.div>
+        </div>
       </div>
     </DashboardLayout>
   );

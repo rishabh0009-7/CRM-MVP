@@ -389,208 +389,223 @@ export default function Analytics() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-8 bg-gray-50 min-h-screen">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Analytics</h1>
-            <p className="text-gray-500">
-              Detailed insights into your business performance
-            </p>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Select value={timeRange} onValueChange={setTimeRange}>
-              <SelectTrigger className="w-40">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="3months">Last 3 months</SelectItem>
-                <SelectItem value="6months">Last 6 months</SelectItem>
-                <SelectItem value="12months">Last 12 months</SelectItem>
-                <SelectItem value="2years">Last 2 years</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button variant="outline" size="sm">
-              <Filter className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 mr-2" />
-              Export
-            </Button>
+        <div className="bg-white border-b border-gray-200 px-6 py-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Analytics Dashboard</h1>
+              <p className="text-lg text-gray-600">
+                Comprehensive insights into your business performance
+              </p>
+            </div>
+            <div className="flex items-center space-x-3">
+              <Select value={timeRange} onValueChange={setTimeRange}>
+                <SelectTrigger className="w-40 bg-white border-gray-300 rounded-xl">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="3months">Last 3 months</SelectItem>
+                  <SelectItem value="6months">Last 6 months</SelectItem>
+                  <SelectItem value="12months">Last 12 months</SelectItem>
+                  <SelectItem value="2years">Last 2 years</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button variant="outline" size="sm" className="bg-white border-gray-300 rounded-xl hover:bg-gray-50">
+                <Filter className="h-4 w-4 mr-2" />
+                Filter
+              </Button>
+              <Button variant="outline" size="sm" className="bg-green-600 hover:bg-green-700 text-white border-0 rounded-xl">
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </div>
           </div>
         </div>
 
         {/* Key Metrics */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card className="border-0 shadow-sm">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">Conversion Rate</CardTitle>
-                <TrendingUp className="h-4 w-4 text-gray-400" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">{analyticsData.conversionRate.toFixed(1)}%</div>
-                <p className="text-xs text-green-600 flex items-center">
-                  <TrendingUp className="h-3 w-3 mr-1" />
-                  +2.1% from last month
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
+        <div className="px-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Card className="bg-white border-0 shadow-lg rounded-2xl p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardTitle className="text-sm font-medium text-gray-600">Conversion Rate</CardTitle>
+                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                    <TrendingUp className="h-5 w-5 text-green-600" />
+                  </div>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="text-3xl font-bold text-gray-900 mb-2">{analyticsData.conversionRate.toFixed(1)}%</div>
+                  <p className="text-sm text-green-600 flex items-center">
+                    <TrendingUp className="h-4 w-4 mr-1" />
+                    +2.1% from last month
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Avg Deal Size</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">${analyticsData.avgDealSize.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground">
-                  +8.3% from last month
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <Card className="bg-white border-0 shadow-lg rounded-2xl p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardTitle className="text-sm font-medium text-gray-600">Avg Deal Size</CardTitle>
+                  <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <DollarSign className="h-5 w-5 text-blue-600" />
+                  </div>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="text-3xl font-bold text-gray-900 mb-2">${analyticsData.avgDealSize.toLocaleString()}</div>
+                  <p className="text-sm text-blue-600 flex items-center">
+                    <TrendingUp className="h-4 w-4 mr-1" />
+                    +8.3% from last month
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Monthly Growth</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{analyticsData.monthlyGrowth}%</div>
-                <p className="text-xs text-muted-foreground">
-                  +3.2% from last month
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Card className="bg-white border-0 shadow-lg rounded-2xl p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardTitle className="text-sm font-medium text-gray-600">Monthly Growth</CardTitle>
+                  <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                    <TrendingUp className="h-5 w-5 text-purple-600" />
+                  </div>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="text-3xl font-bold text-gray-900 mb-2">{analyticsData.monthlyGrowth}%</div>
+                  <p className="text-sm text-purple-600 flex items-center">
+                    <TrendingUp className="h-4 w-4 mr-1" />
+                    +3.2% from last month
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Active Pipeline</CardTitle>
-                <FileText className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">$125,000</div>
-                <p className="text-xs text-muted-foreground">
-                  12 proposals pending
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Card className="bg-white border-0 shadow-lg rounded-2xl p-6">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardTitle className="text-sm font-medium text-gray-600">Active Pipeline</CardTitle>
+                  <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center">
+                    <FileText className="h-5 w-5 text-orange-600" />
+                  </div>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="text-3xl font-bold text-gray-900 mb-2">$125,000</div>
+                  <p className="text-sm text-orange-600">
+                    12 proposals pending
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
         </div>
 
         {/* Charts Section */}
-        <Tabs defaultValue="revenue" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="revenue">Revenue</TabsTrigger>
-            <TabsTrigger value="clients">Clients</TabsTrigger>
-            <TabsTrigger value="proposals">Proposals</TabsTrigger>
-            <TabsTrigger value="performance">Performance</TabsTrigger>
-            <TabsTrigger value="marketing">Marketing</TabsTrigger>
-            <TabsTrigger value="insights">Insights</TabsTrigger>
-          </TabsList>
+        <div className="px-6">
+          <Tabs defaultValue="revenue" className="space-y-6">
+            <TabsList className="grid w-full grid-cols-6 bg-white border border-gray-200 rounded-2xl p-1 shadow-sm">
+              <TabsTrigger value="revenue" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Revenue</TabsTrigger>
+              <TabsTrigger value="clients" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Clients</TabsTrigger>
+              <TabsTrigger value="proposals" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Proposals</TabsTrigger>
+              <TabsTrigger value="performance" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Performance</TabsTrigger>
+              <TabsTrigger value="marketing" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Marketing</TabsTrigger>
+              <TabsTrigger value="insights" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Insights</TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="revenue" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Revenue Trend</CardTitle>
-                    <CardDescription>
-                      Monthly revenue performance over time
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Line data={revenueChartData} options={chartOptions} />
-                  </CardContent>
-                </Card>
-              </motion.div>
+            <TabsContent value="revenue" className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Card className="bg-white border-0 shadow-lg rounded-2xl">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-xl font-bold text-gray-900">Revenue Trend</CardTitle>
+                      <CardDescription className="text-gray-600">
+                        Monthly revenue performance over time
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Line data={revenueChartData} options={chartOptions} />
+                    </CardContent>
+                  </Card>
+                </motion.div>
               
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Revenue vs Expenses</CardTitle>
-                    <CardDescription>
-                      Area chart showing revenue and expense trends
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Line data={areaChartData} options={chartOptions} />
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </TabsContent>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <Card className="bg-white border-0 shadow-lg rounded-2xl">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-xl font-bold text-gray-900">Revenue vs Expenses</CardTitle>
+                      <CardDescription className="text-gray-600">
+                        Area chart showing revenue and expense trends
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Line data={areaChartData} options={chartOptions} />
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </div>
+            </TabsContent>
 
-          <TabsContent value="clients" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Client Acquisition</CardTitle>
-                    <CardDescription>
-                      New clients acquired each month
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Bar data={clientsChartData} options={chartOptions} />
-                  </CardContent>
-                </Card>
-              </motion.div>
+            <TabsContent value="clients" className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Card className="bg-white border-0 shadow-lg rounded-2xl">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-xl font-bold text-gray-900">Client Growth</CardTitle>
+                      <CardDescription className="text-gray-600">
+                        Monthly client acquisition trends
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Bar data={clientsChartData} options={chartOptions} />
+                    </CardContent>
+                  </Card>
+                </motion.div>
               
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Client Satisfaction Trend</CardTitle>
-                    <CardDescription>
-                      Monthly client satisfaction scores
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Line data={satisfactionTrendData} options={chartOptions} />
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </TabsContent>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <Card className="bg-white border-0 shadow-lg rounded-2xl">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-xl font-bold text-gray-900">Client Satisfaction Trend</CardTitle>
+                      <CardDescription className="text-gray-600">
+                        Monthly client satisfaction scores
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Line data={satisfactionTrendData} options={chartOptions} />
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </div>
+            </TabsContent>
 
           <TabsContent value="proposals" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
@@ -728,7 +743,8 @@ export default function Analytics() {
               </Card>
             </motion.div>
           </TabsContent>
-        </Tabs>
+          </Tabs>
+        </div>
       </div>
     </DashboardLayout>
   );

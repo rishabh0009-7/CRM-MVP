@@ -235,41 +235,46 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-8 bg-gray-50 min-h-screen">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Hello, {user?.email?.split('@')[0] || 'User'}!</h1>
-            <p className="text-gray-500">
-              Here's your overview of your business!
-            </p>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="icon">
-              <CalendarIcon className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <Search className="h-5 w-5" />
-            </Button>
+        <div className="bg-white border-b border-gray-200 px-6 py-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Hello, {user?.email?.split('@')[0] || 'User'}!</h1>
+              <p className="text-lg text-gray-600">
+                Here's your overview of your business
+              </p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" size="icon" className="hover:bg-green-100 hover:text-green-600 rounded-xl">
+                <CalendarIcon className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="hover:bg-green-100 hover:text-green-600 rounded-xl">
+                <Search className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <div className="px-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5 items-stretch">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Card className="border-0 shadow-sm">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="bg-white border-0 shadow-lg rounded-2xl p-6 h-full flex flex-col">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 flex-shrink-0">
                 <CardTitle className="text-sm font-medium text-gray-600">Total Revenue</CardTitle>
-                <DollarSign className="h-4 w-4 text-gray-400" />
+                <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                  <DollarSign className="h-5 w-5 text-green-600" />
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toLocaleString()}</div>
-                <p className="text-xs text-green-600 flex items-center">
-                  <TrendingUp className="h-3 w-3 mr-1" />
+              <CardContent className="p-0 flex-grow flex flex-col justify-between">
+                <div className="text-3xl font-bold text-gray-900 mb-2">${stats.totalRevenue.toLocaleString()}</div>
+                <p className="text-sm text-green-600 flex items-center">
+                  <TrendingUp className="h-4 w-4 mr-1" />
                   +20.1% from last month
                 </p>
               </CardContent>
@@ -281,15 +286,17 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Card className="border-0 shadow-sm">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="bg-white border-0 shadow-lg rounded-2xl p-6 h-full flex flex-col">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 flex-shrink-0">
                 <CardTitle className="text-sm font-medium text-gray-600">Profit Total</CardTitle>
-                <TrendingUp className="h-4 w-4 text-gray-400" />
+                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <TrendingUp className="h-5 w-5 text-blue-600" />
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">${stats.totalProfit.toLocaleString()}</div>
-                <p className="text-xs text-green-600 flex items-center">
-                  <TrendingUp className="h-3 w-3 mr-1" />
+              <CardContent className="p-0 flex-grow flex flex-col justify-between">
+                <div className="text-3xl font-bold text-gray-900 mb-2">${stats.totalProfit.toLocaleString()}</div>
+                <p className="text-sm text-blue-600 flex items-center">
+                  <TrendingUp className="h-4 w-4 mr-1" />
                   +15.3% from last month
                 </p>
               </CardContent>
@@ -301,15 +308,17 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="border-0 shadow-sm">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="bg-white border-0 shadow-lg rounded-2xl p-6 h-full flex flex-col">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 flex-shrink-0">
                 <CardTitle className="text-sm font-medium text-gray-600">Expense Total</CardTitle>
-                <FileText className="h-4 w-4 text-gray-400" />
+                <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center">
+                  <FileText className="h-5 w-5 text-orange-600" />
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">${stats.totalExpenses.toLocaleString()}</div>
-                <p className="text-xs text-green-600 flex items-center">
-                  <TrendingUp className="h-3 w-3 mr-1" />
+              <CardContent className="p-0 flex-grow flex flex-col justify-between">
+                <div className="text-3xl font-bold text-gray-900 mb-2">${stats.totalExpenses.toLocaleString()}</div>
+                <p className="text-sm text-orange-600 flex items-center">
+                  <TrendingUp className="h-4 w-4 mr-1" />
                   +5.2% from last month
                 </p>
               </CardContent>
@@ -321,15 +330,17 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Card className="border-0 shadow-sm">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="bg-white border-0 shadow-lg rounded-2xl p-6 h-full flex flex-col">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 flex-shrink-0">
                 <CardTitle className="text-sm font-medium text-gray-600">Total Customers</CardTitle>
-                <Users className="h-4 w-4 text-gray-400" />
+                <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                  <Users className="h-5 w-5 text-purple-600" />
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">{stats.totalCustomers}</div>
-                <p className="text-xs text-green-600 flex items-center">
-                  <TrendingUp className="h-3 w-3 mr-1" />
+              <CardContent className="p-0 flex-grow flex flex-col justify-between">
+                <div className="text-3xl font-bold text-gray-900 mb-2">{stats.totalCustomers}</div>
+                <p className="text-sm text-purple-600 flex items-center">
+                  <TrendingUp className="h-4 w-4 mr-1" />
                   +12 new this month
                 </p>
               </CardContent>
@@ -341,53 +352,59 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Card className="border-0 shadow-sm">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <Card className="bg-white border-0 shadow-lg rounded-2xl p-6 h-full flex flex-col">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 flex-shrink-0">
                 <CardTitle className="text-sm font-medium text-gray-600">Active Customers</CardTitle>
-                <Users className="h-4 w-4 text-gray-400" />
+                <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                  <Users className="h-5 w-5 text-indigo-600" />
+                </div>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900">{stats.activeCustomers}</div>
-                <p className="text-xs text-green-600 flex items-center">
-                  <TrendingUp className="h-3 w-3 mr-1" />
+              <CardContent className="p-0 flex-grow flex flex-col justify-between">
+                <div className="text-3xl font-bold text-gray-900 mb-2">{stats.activeCustomers}</div>
+                <p className="text-sm text-indigo-600 flex items-center">
+                  <TrendingUp className="h-4 w-4 mr-1" />
                   +8.1% from last month
                 </p>
               </CardContent>
             </Card>
           </motion.div>
+          </div>
         </div>
 
         {/* Chart Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <Card className="border-0 shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold">Revenue Trend</CardTitle>
-              <CardDescription>
-                Your revenue performance over the past 12 months
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-80">
-                <Bar data={salesOverviewData} options={chartOptions} />
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+        <div className="px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <Card className="bg-white border-0 shadow-lg rounded-2xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-bold text-gray-900">Revenue Trend</CardTitle>
+                <CardDescription className="text-gray-600">
+                  Your revenue performance over the past 12 months
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <Bar data={salesOverviewData} options={chartOptions} />
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
 
         {/* Customer Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-        >
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Customers</CardTitle>
-              <CardDescription>
+        <div className="px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
+          <Card className="bg-white border-0 shadow-lg rounded-2xl">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl font-bold text-gray-900">Recent Customers</CardTitle>
+              <CardDescription className="text-gray-600">
                 Manage your client relationships
               </CardDescription>
               <div className="flex items-center space-x-2">
@@ -397,10 +414,10 @@ export default function Dashboard() {
                     placeholder="Search customers..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 border-gray-300 rounded-xl focus:border-green-500 focus:ring-green-500"
                   />
                 </div>
-                <Button variant="outline">Filter</Button>
+                <Button variant="outline" className="border-gray-300 rounded-xl hover:bg-green-50 hover:border-green-500">Filter</Button>
               </div>
             </CardHeader>
             <CardContent>
@@ -467,39 +484,42 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </motion.div>
+        </div>
 
         {/* AI Insights Widget */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-        >
-          <Card>
-            <CardHeader>
-              <CardTitle>AI Insights</CardTitle>
-              <CardDescription>
-                Smart recommendations for your business
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
-                  <h4 className="font-medium text-primary mb-2">Revenue Opportunity</h4>
-                  <p className="text-sm text-muted-foreground">
-                    You have 3 clients who haven't received a proposal in the last 30 days. 
-                    Consider reaching out with new project ideas.
-                  </p>
+        <div className="px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+          >
+            <Card className="bg-white border-0 shadow-lg rounded-2xl">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-bold text-gray-900">AI Insights</CardTitle>
+                <CardDescription className="text-gray-600">
+                  Smart recommendations for your business
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
+                    <h4 className="font-medium text-primary mb-2">Revenue Opportunity</h4>
+                    <p className="text-sm text-muted-foreground">
+                      You have 3 clients who haven't received a proposal in the last 30 days. 
+                      Consider reaching out with new project ideas.
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-info/10 border border-info/20">
+                    <h4 className="font-medium text-info mb-2">Follow-up Reminder</h4>
+                    <p className="text-sm text-muted-foreground">
+                      2 proposals are pending response. Schedule follow-up calls to increase conversion rates.
+                    </p>
+                  </div>
                 </div>
-                <div className="p-4 rounded-lg bg-info/10 border border-info/20">
-                  <h4 className="font-medium text-info mb-2">Follow-up Reminder</h4>
-                  <p className="text-sm text-muted-foreground">
-                    2 proposals are pending response. Schedule follow-up calls to increase conversion rates.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
       </div>
     </DashboardLayout>
   );

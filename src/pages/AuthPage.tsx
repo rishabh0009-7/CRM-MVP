@@ -98,21 +98,22 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navigation */}
-      <nav className="border-b">
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground">
+              <Link to="/" className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
                 <ArrowLeft className="h-4 w-4" />
                 <span>Back to Home</span>
               </Link>
             </div>
-            <div className="flex items-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-                Mini CRM
-              </span>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">F</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900">FlowCRM</span>
             </div>
             <div className="w-24"></div> {/* Spacer for centering */}
           </div>
@@ -127,18 +128,18 @@ export default function AuthPage() {
           transition={{ duration: 0.8 }}
           className="w-full max-w-md"
         >
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-center text-2xl">Welcome</CardTitle>
-              <CardDescription className="text-center">
+          <Card className="bg-white shadow-xl border-0 rounded-2xl">
+            <CardHeader className="text-center pb-8">
+              <CardTitle className="text-3xl font-bold text-gray-900 mb-2">Welcome back</CardTitle>
+              <CardDescription className="text-gray-600 text-lg">
                 Sign in to your account or create a new one
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-8 pb-8">
               <Tabs defaultValue="signin" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="signin">Sign In</TabsTrigger>
-                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 bg-gray-100 p-1 rounded-xl">
+                  <TabsTrigger value="signin" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">Sign In</TabsTrigger>
+                  <TabsTrigger value="signup" className="rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">Sign Up</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="signin">
@@ -167,7 +168,7 @@ export default function AuthPage() {
                     </div>
                     <Button 
                       type="submit" 
-                      className="w-full" 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-medium" 
                       disabled={isLoading}
                     >
                       {isLoading ? "Signing in..." : "Sign In"}
@@ -221,7 +222,7 @@ export default function AuthPage() {
                     </div>
                     <Button 
                       type="submit" 
-                      className="w-full" 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-medium" 
                       disabled={isLoading}
                     >
                       {isLoading ? "Creating account..." : "Sign Up"}
