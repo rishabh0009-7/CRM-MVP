@@ -237,8 +237,8 @@ export default function Proposals() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Proposals</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Proposals</h1>
+            <p className="text-gray-500">
               Create, track, and manage your client proposals.
             </p>
           </div>

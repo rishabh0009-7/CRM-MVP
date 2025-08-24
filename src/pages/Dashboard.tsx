@@ -6,18 +6,21 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { DollarSign, Users, FileText, TrendingUp, Search, Star } from 'lucide-react';
+import { Calendar } from '@/components/ui/calendar';
+import { Checkbox } from '@/components/ui/checkbox';
+import { DollarSign, Users, FileText, TrendingUp, Search, Star, Calendar as CalendarIcon, Clock, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -26,6 +29,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -37,6 +41,14 @@ interface DashboardStats {
   totalExpenses: number;
   totalCustomers: number;
   activeCustomers: number;
+}
+
+interface ScheduleItem {
+  id: string;
+  time: string;
+  title: string;
+  description: string;
+  completed: boolean;
 }
 
 interface Client {
@@ -58,17 +70,62 @@ export default function Dashboard() {
   });
   const [clients, setClients] = useState<Client[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([
+    {
+      id: '1',
+      time: '09:30 AM',
+      title: 'Business Analytics Press',
+      description: 'Focus on core and key metrics',
+      completed: true
+    },
+    {
+      id: '2',
+      time: '10:35 AM',
+      title: 'Business Sprint',
+      description: 'James Gartwood and 8+ more',
+      completed: false
+    },
+    {
+      id: '3',
+      time: '1:15 PM',
+      title: 'Customer Review Meeting',
+      description: 'Nathaniel Ramirez and 6+ more',
+      completed: false
+    },
+    {
+      id: '4',
+      time: '2:45 AM',
+      title: 'Daily Office Meeting',
+      description: 'Milan Ramirez and 2+ more',
+      completed: false
+    },
+    {
+      id: '5',
+      time: '09:30 AM',
+      title: 'Sales Strategy Meeting',
+      description: 'Frederick Ramirez and 3+ more',
+      completed: false
+    }
+  ]);
 
-  // Chart data
-  const chartData = {
+  // Chart data with green theme
+  const salesOverviewData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
-        label: 'Revenue',
+        label: 'Sales',
         data: [3000, 4500, 3200, 5800, 6200, 7100, 6800, 8200, 7500, 9100, 8800, 10200],
-        borderColor: 'hsl(var(--primary))',
-        backgroundColor: 'hsl(var(--primary) / 0.1)',
-        tension: 0.4,
+        backgroundColor: '#22c55e',
+        borderRadius: 4,
+        barThickness: 20,
+      },
+      {
+        label: 'Expenses',
+        data: [2000, 2800, 2100, 3200, 3800, 4200, 4100, 4800, 4300, 5200, 5100, 5800],
+        backgroundColor: '#94a3b8',
+        borderRadius: 4,
+        barThickness: 20,
       },
     ],
   };
@@ -77,23 +134,28 @@ export default function Dashboard() {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: 'Revenue Trend (2024)',
+        display: false,
       },
     },
     scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
       y: {
         beginAtZero: true,
+        grid: {
+          color: '#f1f5f9',
+        },
         ticks: {
           callback: function(value: any) {
-            return '$' + value.toLocaleString();
+            return value + 'K';
           }
         }
       }
-    }
+    },
+    maintainAspectRatio: false,
   };
 
   useEffect(() => {
@@ -163,15 +225,33 @@ export default function Dashboard() {
   const getRandomProgress = () => Math.floor(Math.random() * 100);
   const getRandomRating = () => Math.floor(Math.random() * 5) + 1;
 
+  const toggleScheduleItem = (id: string) => {
+    setScheduleItems(items => 
+      items.map(item => 
+        item.id === id ? { ...item, completed: !item.completed } : item
+      )
+    );
+  };
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">
-            Welcome back! Here's what's happening with your business.
-          </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Hello, {user?.email?.split('@')[0] || 'User'}!</h1>
+            <p className="text-gray-500">
+              Here's your overview of your business!
+            </p>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button variant="ghost" size="icon">
+              <CalendarIcon className="h-5 w-5" />
+            </Button>
+            <Button variant="ghost" size="icon">
+              <Search className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
 
         {/* Stats Cards */}
@@ -181,14 +261,15 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Card>
+            <Card className="border-0 shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-gray-600">Total Revenue</CardTitle>
+                <DollarSign className="h-4 w-4 text-gray-400" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">${stats.totalRevenue.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toLocaleString()}</div>
+                <p className="text-xs text-green-600 flex items-center">
+                  <TrendingUp className="h-3 w-3 mr-1" />
                   +20.1% from last month
                 </p>
               </CardContent>
@@ -200,14 +281,15 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Card>
+            <Card className="border-0 shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Profit Total</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-gray-600">Profit Total</CardTitle>
+                <TrendingUp className="h-4 w-4 text-gray-400" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">${stats.totalProfit.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold text-gray-900">${stats.totalProfit.toLocaleString()}</div>
+                <p className="text-xs text-green-600 flex items-center">
+                  <TrendingUp className="h-3 w-3 mr-1" />
                   +15.3% from last month
                 </p>
               </CardContent>
@@ -219,14 +301,15 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card>
+            <Card className="border-0 shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Expense Total</CardTitle>
-                <FileText className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-gray-600">Expense Total</CardTitle>
+                <FileText className="h-4 w-4 text-gray-400" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">${stats.totalExpenses.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold text-gray-900">${stats.totalExpenses.toLocaleString()}</div>
+                <p className="text-xs text-green-600 flex items-center">
+                  <TrendingUp className="h-3 w-3 mr-1" />
                   +5.2% from last month
                 </p>
               </CardContent>
@@ -238,14 +321,15 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Card>
+            <Card className="border-0 shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Customers</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-gray-600">Total Customers</CardTitle>
+                <Users className="h-4 w-4 text-gray-400" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{stats.totalCustomers}</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold text-gray-900">{stats.totalCustomers}</div>
+                <p className="text-xs text-green-600 flex items-center">
+                  <TrendingUp className="h-3 w-3 mr-1" />
                   +12 new this month
                 </p>
               </CardContent>
@@ -257,14 +341,15 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Card>
+            <Card className="border-0 shadow-sm">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Active Customers</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-gray-600">Active Customers</CardTitle>
+                <Users className="h-4 w-4 text-gray-400" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{stats.activeCustomers}</div>
-                <p className="text-xs text-muted-foreground">
+                <div className="text-2xl font-bold text-gray-900">{stats.activeCustomers}</div>
+                <p className="text-xs text-green-600 flex items-center">
+                  <TrendingUp className="h-3 w-3 mr-1" />
                   +8.1% from last month
                 </p>
               </CardContent>
@@ -278,15 +363,17 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <Card>
+          <Card className="border-0 shadow-sm">
             <CardHeader>
-              <CardTitle>Revenue Trend</CardTitle>
+              <CardTitle className="text-lg font-semibold">Revenue Trend</CardTitle>
               <CardDescription>
                 Your revenue performance over the past 12 months
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Line data={chartData} options={chartOptions} />
+              <div className="h-80">
+                <Bar data={salesOverviewData} options={chartOptions} />
+              </div>
             </CardContent>
           </Card>
         </motion.div>
@@ -295,7 +382,7 @@ export default function Dashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
         >
           <Card>
             <CardHeader>

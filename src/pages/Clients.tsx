@@ -176,8 +176,8 @@ export default function Clients() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Clients</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Clients</h1>
+            <p className="text-gray-500">
               Manage your client relationships and contact information.
             </p>
           </div>
