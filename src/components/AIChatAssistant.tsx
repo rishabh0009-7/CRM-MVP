@@ -67,14 +67,14 @@ export function AIChatAssistant({ clientData, businessData }: AIChatAssistantPro
     setIsLoading(true);
 
     try {
-      const context = {
+      // Only include context if it's specifically relevant to the question
+      const context = inputMessage.toLowerCase().includes('client') || 
+                     inputMessage.toLowerCase().includes('business') || 
+                     inputMessage.toLowerCase().includes('revenue') ||
+                     inputMessage.toLowerCase().includes('analyze') ? {
         clientData,
-        businessData,
-        previousMessages: messages.slice(-5).map(msg => ({
-          role: msg.role,
-          content: msg.content
-        }))
-      };
+        businessData
+      } : undefined;
 
       const aiResponse = await chatWithAI(inputMessage, context);
 
@@ -90,7 +90,7 @@ export function AIChatAssistant({ clientData, businessData }: AIChatAssistantPro
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'I apologize, but I encountered an error. Please check your OpenAI API configuration and try again.',
+        content: 'I apologize, but I encountered an error. Please check your OpenRouter API configuration and try again.',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -189,7 +189,7 @@ export function AIChatAssistant({ clientData, businessData }: AIChatAssistantPro
               className="flex flex-col h-full"
             >
               {/* Messages */}
-              <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
+              <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 max-h-80">
                 {messages.map((message) => (
                   <motion.div
                     key={message.id}

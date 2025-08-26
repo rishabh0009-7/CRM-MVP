@@ -26,7 +26,7 @@ interface AIInsightsProps {
 
 export function AIInsights({ clientData, businessData, type }: AIInsightsProps) {
   const [insights, setInsights] = useState<ClientInsight | null>(null);
-  const [businessInsights, setBusinessInsights] = useState<string[]>([]);
+  const [businessInsights, setBusinessInsights] = useState<string | string[]>('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,13 +37,25 @@ export function AIInsights({ clientData, businessData, type }: AIInsightsProps) 
     try {
       if (type === 'client' && clientData) {
         const result = await generateClientInsights(clientData);
-        setInsights(result);
+        // Parse the string result into ClientInsight object
+        try {
+          const parsed = JSON.parse(result);
+          setInsights(parsed);
+        } catch {
+          // If parsing fails, create a basic insight object
+          setInsights({
+            summary: result,
+            opportunities: [],
+            risks: [],
+            recommendations: []
+          });
+        }
       } else if (type === 'business' && businessData) {
         const result = await generateBusinessInsights(businessData);
         setBusinessInsights(result);
       }
     } catch (err) {
-      setError('Failed to generate AI insights. Please check your OpenAI API key.');
+      setError('Failed to generate AI insights. Please check your OpenRouter API key.');
       console.error('AI Insights Error:', err);
     } finally {
       setLoading(false);
@@ -52,7 +64,10 @@ export function AIInsights({ clientData, businessData, type }: AIInsightsProps) 
 
   useEffect(() => {
     if ((type === 'client' && clientData) || (type === 'business' && businessData)) {
-      generateInsights();
+      // Only generate insights if we don't already have them
+      if ((type === 'client' && !insights) || (type === 'business' && !businessInsights)) {
+        generateInsights();
+      }
     }
   }, [clientData, businessData, type]);
 
@@ -211,9 +226,17 @@ export function AIInsights({ clientData, businessData, type }: AIInsightsProps) 
           </div>
         )}
 
-        {businessInsights.length > 0 && !loading && (
-          <div className="space-y-3">
-            {businessInsights.map((insight, index) => (
+        {businessInsights && !loading && (
+          <div className="space-y-4">
+            {typeof businessInsights === 'string' ? (
+              <div className="p-4 rounded-lg bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200">
+                <div className="prose prose-sm max-w-none">
+                  <div className="whitespace-pre-wrap text-gray-700">{businessInsights}</div>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {businessInsights.map((insight, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
@@ -228,8 +251,10 @@ export function AIInsights({ clientData, businessData, type }: AIInsightsProps) 
                   <p className="text-sm text-gray-700 flex-1">{insight}</p>
                   <Lightbulb className="h-4 w-4 text-purple-600 flex-shrink-0" />
                 </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+              </div>
+            )}
           </div>
         )}
       </CardContent>
