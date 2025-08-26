@@ -82,22 +82,7 @@ VITE_OPENROUTER_API_KEY="sk-or-v1-your_api_key_here"
 npm run dev
 ```
 
-Visit `http://localhost:5173` to see your CRM in action!
 
-## 📊 Database Schema
-
-The CRM uses the following main tables:
-- `clients` - Client information and contact details
-- `proposals` - Proposal tracking with status and amounts
-- `users` - User authentication and profiles
-
-## 🎨 Design System
-
-### Colors
-- **Primary**: Green (#22c55e)
-- **Background**: Gray-50 (#f9fafb)
-- **Sidebar**: Gray-900 (#111827)
-- **Cards**: White with shadow-lg
 
 ### Components
 - Built with shadcn/ui for consistency
@@ -105,29 +90,8 @@ The CRM uses the following main tables:
 - Responsive grid layouts
 - Professional animations
 
-## 🤖 AI Features
 
-The CRM includes comprehensive AI functionality powered by OpenRouter:
 
-### AI Chat Assistant
-- Business consultation and guidance
-- CRM feature explanations
-- Strategic recommendations
-
-### AI Business Insights
-- Automated dashboard analysis
-- Performance recommendations
-- Risk assessment
-
-### AI Proposal Generator
-- Tailored client proposals
-- Industry-specific suggestions
-- Pricing recommendations
-
-### AI Client Analysis
-- Individual client insights
-- Opportunity identification
-- Relationship recommendations
 
 ## 📱 Pages Overview
 
@@ -183,13 +147,6 @@ src/
 └── lib/               # Utility functions
 ```
 
-## 🚀 Deployment
-
-The project is ready for deployment on platforms like:
-- Vercel
-- Netlify  
-- AWS Amplify
-- Railway
 
 Make sure to set your environment variables in your deployment platform.
 
@@ -205,18 +162,9 @@ Make sure to set your environment variables in your deployment platform.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
 
-- [Supabase](https://supabase.com) for the backend infrastructure
-- [OpenRouter](https://openrouter.ai) for AI API access
-- [shadcn/ui](https://ui.shadcn.com) for the component library
-- [Tailwind CSS](https://tailwindcss.com) for styling
-- [Chart.js](https://www.chartjs.org) for data visualization
 
-## 📞 Support
 
-If you have any questions or need help setting up the CRM, please:
-1. Check the existing issues
 2. Create a new issue with detailed information
 3. Contact the maintainers
 
