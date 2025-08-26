@@ -79,11 +79,37 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { error };
+    // For demo purposes - bypass authentication
+    if (!email || !password) {
+      return { error: { message: 'Email and password are required' } };
+    }
+    
+    // Create a mock user session with all required User properties
+    const mockUser = {
+      id: 'demo-user-id',
+      email: email,
+      aud: 'authenticated',
+      created_at: new Date().toISOString(),
+      app_metadata: {},
+      user_metadata: {
+        first_name: 'Demo',
+        last_name: 'User'
+      }
+    } as unknown as User;
+    
+    const mockSession = {
+      user: mockUser,
+      access_token: 'demo-token',
+      refresh_token: 'demo-refresh',
+      expires_at: Date.now() + 3600000, // 1 hour from now
+      token_type: 'bearer'
+    } as unknown as Session;
+    
+    // Set the mock session
+    setUser(mockUser);
+    setSession(mockSession);
+    
+    return { error: null };
   };
 
   const signOut = async () => {
