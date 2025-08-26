@@ -1,0 +1,31 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" r="100" fill="#22c55e"/>
+  <g transform="translate(100, 100)">
+    <!-- Central circle with user icon -->
+    <circle cx="0" cy="0" r="35" fill="none" stroke="white" stroke-width="4"/>
+    
+    <!-- User icon -->
+    <circle cx="0" cy="-8" r="8" fill="white"/>
+    <path d="M -12 15 Q -12 5 0 5 Q 12 5 12 15 Z" fill="white"/>
+    
+    <!-- Connection points -->
+    <circle cx="0" cy="-60" r="6" fill="white"/>
+    <circle cx="42.4" cy="-42.4" r="6" fill="white"/>
+    <circle cx="60" cy="0" r="6" fill="white"/>
+    <circle cx="42.4" cy="42.4" r="6" fill="white"/>
+    <circle cx="0" cy="60" r="6" fill="white"/>
+    <circle cx="-42.4" cy="42.4" r="6" fill="white"/>
+    <circle cx="-60" cy="0" r="6" fill="white"/>
+    <circle cx="-42.4" cy="-42.4" r="6" fill="white"/>
+    
+    <!-- Connection lines -->
+    <line x1="0" y1="-35" x2="0" y2="-54" stroke="white" stroke-width="3"/>
+    <line x1="24.7" y1="-24.7" x2="36.4" y2="-36.4" stroke="white" stroke-width="3"/>
+    <line x1="35" y1="0" x2="54" y2="0" stroke="white" stroke-width="3"/>
+    <line x1="24.7" y1="24.7" x2="36.4" y2="36.4" stroke="white" stroke-width="3"/>
+    <line x1="0" y1="35" x2="0" y2="54" stroke="white" stroke-width="3"/>
+    <line x1="-24.7" y1="24.7" x2="-36.4" y2="36.4" stroke="white" stroke-width="3"/>
+    <line x1="-35" y1="0" x2="-54" y2="0" stroke="white" stroke-width="3"/>
+    <line x1="-24.7" y1="-24.7" x2="-36.4" y2="-36.4" stroke="white" stroke-width="3"/>
+  </g>
+</svg>

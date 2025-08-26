@@ -44,9 +44,11 @@ export function AppSidebar() {
     <div className="fixed left-0 top-0 z-40 h-screen w-64 flex-col bg-gray-900 text-white flex">
       {/* Header */}
       <div className="flex items-center px-4 py-6">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-500">
-          <span className="text-sm font-bold text-white">S</span>
-        </div>
+        <img 
+          src="/logo.svg" 
+          alt="CRM Logo" 
+          className="h-8 w-8 rounded-full bg-transparent"
+        />
         <span className="ml-3 text-lg font-semibold text-white">SyncAi</span>
       </div>
 

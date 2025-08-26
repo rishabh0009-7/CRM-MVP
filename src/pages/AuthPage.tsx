@@ -110,9 +110,11 @@ export default function AuthPage() {
               </Link>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
+              <img 
+                src="/logo.svg" 
+                alt="CRM Logo" 
+                className="w-8 h-8 rounded-full bg-transparent"
+              />
               <span className="text-xl font-bold text-gray-900">SyncAi</span>
             </div>
             <div className="w-24"></div> {/* Spacer for centering */}
