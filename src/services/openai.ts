@@ -55,7 +55,7 @@ export async function generateClientInsights(
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openrouter.apiKey}`,
         'HTTP-Referer': 'http://localhost:5173',
-        'X-Title': 'Mini CRM Dashboard'
+        'X-Title': 'SyncAi Dashboard'
       },
       body: JSON.stringify({
         model: 'anthropic/claude-3-haiku',
@@ -100,7 +100,7 @@ export async function generateProposalSuggestions(
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openrouter.apiKey}`,
         'HTTP-Referer': 'http://localhost:5173',
-        'X-Title': 'Mini CRM Dashboard'
+        'X-Title': 'SyncAi Dashboard'
       },
       body: JSON.stringify({
         model: 'anthropic/claude-3-haiku',
@@ -160,7 +160,7 @@ export async function generateEmailTemplate(
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openrouter.apiKey}`,
         'HTTP-Referer': 'http://localhost:5173',
-        'X-Title': 'Mini CRM Dashboard'
+        'X-Title': 'SyncAi Dashboard'
       },
       body: JSON.stringify({
         model: 'anthropic/claude-3-haiku',
@@ -202,7 +202,7 @@ export async function generateBusinessInsights(dashboardData: any): Promise<stri
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openrouter.apiKey}`,
         'HTTP-Referer': 'http://localhost:5173',
-        'X-Title': 'Mini CRM Dashboard'
+        'X-Title': 'SyncAi Dashboard'
       },
       body: JSON.stringify({
         model: 'anthropic/claude-3-haiku',
@@ -252,7 +252,7 @@ export async function chatWithAI(
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${openrouter.apiKey}`,
         'HTTP-Referer': 'http://localhost:5173',
-        'X-Title': 'Mini CRM Dashboard'
+        'X-Title': 'SyncAi Dashboard'
       },
       body: JSON.stringify({
         model: 'anthropic/claude-3-haiku',

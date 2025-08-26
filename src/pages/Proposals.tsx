@@ -106,14 +106,27 @@ export default function Proposals() {
     setIsLoading(true);
 
     try {
+      // Validate required fields
+      if (!formData.title.trim()) {
+        throw new Error('Title is required');
+      }
+      if (!formData.client_id) {
+        throw new Error('Client selection is required');
+      }
+      if (!user?.id) {
+        throw new Error('User not authenticated');
+      }
+
       const proposalData = {
-        title: formData.title,
+        title: formData.title.trim(),
         amount: parseFloat(formData.amount) || 0,
         status: formData.status,
         follow_up_date: formData.follow_up_date || null,
         client_id: formData.client_id,
-        user_id: user?.id,
+        user_id: user.id,
       };
+
+      console.log('Submitting proposal data:', proposalData);
 
       if (editingProposal) {
         // Update existing proposal
@@ -131,10 +144,12 @@ export default function Proposals() {
         });
       } else {
         // Create new proposal
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from('proposals')
-          .insert([proposalData]);
+          .insert([proposalData])
+          .select();
 
+        console.log('Insert result:', { data, error });
         if (error) throw error;
 
         toast({
@@ -147,11 +162,23 @@ export default function Proposals() {
       resetForm();
       setIsDialogOpen(false);
       fetchProposals();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving proposal:', error);
+      let errorMessage = 'Unknown error occurred';
+      
+      if (error?.message) {
+        errorMessage = error.message;
+      } else if (error?.details) {
+        errorMessage = error.details;
+      } else if (error?.hint) {
+        errorMessage = error.hint;
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      
       toast({
         title: "Error",
-        description: "Failed to save proposal. Please try again.",
+        description: `Failed to save proposal: ${errorMessage}`,
         variant: "destructive",
       });
     } finally {
@@ -276,22 +303,30 @@ export default function Proposals() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="client">Client *</Label>
-                  <Select 
-                    value={formData.client_id} 
-                    onValueChange={(value) => setFormData({ ...formData, client_id: value })}
-                    required
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a client" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {clients.map((client) => (
-                        <SelectItem key={client.id} value={client.id}>
-                          {client.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  {clients.length === 0 ? (
+                    <div className="p-3 border border-orange-200 bg-orange-50 rounded-lg">
+                      <p className="text-sm text-orange-700">
+                        No clients available. Please add a client first before creating a proposal.
+                      </p>
+                    </div>
+                  ) : (
+                    <Select 
+                      value={formData.client_id} 
+                      onValueChange={(value) => setFormData({ ...formData, client_id: value })}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a client" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {clients.map((client) => (
+                          <SelectItem key={client.id} value={client.id}>
+                            {client.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="amount">Amount</Label>
@@ -330,7 +365,11 @@ export default function Proposals() {
                     onChange={(e) => setFormData({ ...formData, follow_up_date: e.target.value })}
                   />
                 </div>
-                <Button type="submit" disabled={isLoading} className="w-full bg-green-600 hover:bg-green-700 text-white border-0 rounded-xl py-3">
+                <Button 
+                  type="submit" 
+                  disabled={isLoading || clients.length === 0} 
+                  className="w-full bg-green-600 hover:bg-green-700 text-white border-0 rounded-xl py-3 disabled:opacity-50"
+                >
                   {isLoading 
                     ? (editingProposal ? 'Updating...' : 'Creating...') 
                     : (editingProposal ? 'Update Proposal' : 'Create Proposal')

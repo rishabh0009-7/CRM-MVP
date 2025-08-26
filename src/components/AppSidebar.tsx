@@ -45,9 +45,9 @@ export function AppSidebar() {
       {/* Header */}
       <div className="flex items-center px-4 py-6">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-500">
-          <span className="text-sm font-bold text-white">C</span>
+          <span className="text-sm font-bold text-white">S</span>
         </div>
-        <span className="ml-3 text-lg font-semibold text-white">Mini CRM</span>
+        <span className="ml-3 text-lg font-semibold text-white">SyncAi</span>
       </div>
 
       {/* Search */}

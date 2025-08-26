@@ -68,7 +68,7 @@ const pricingPlans = [
     price: "$14",
     originalPrice: "$28",
     description: "Perfect for small teams",
-    features: ["Up to 10 users", "Basic CRM features", "Email support", "5GB storage", "Mobile app access"],
+    features: ["Up to 10 users", "Basic SyncAi features", "Email support", "5GB storage", "Mobile app access"],
     popular: false
   },
   {
@@ -92,7 +92,7 @@ const testimonials = [
   {
     name: "Sarah Mitchell",
     role: "CEO, TechFlow Solutions",
-    content: "This CRM transformed our sales process. We've seen a 40% increase in conversion rates since switching.",
+    content: "SyncAi transformed our sales process. We've seen a 40% increase in conversion rates since switching.",
     rating: 5,
     avatar: "SM"
   },
@@ -163,20 +163,23 @@ export default function LandingPage() {
       {/* Navigation */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">F</span>
-                </div>
-                <span className="text-xl font-bold text-gray-900">FlowCRM</span>
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">S</span>
               </div>
-              <div className="hidden md:flex ml-10 space-x-8">
-                <a href="#" className="text-gray-600 hover:text-gray-900">Software</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900">Pricing</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900">Resources</a>
-              </div>
+              <span className="text-xl font-bold text-gray-900">SyncAi</span>
             </div>
+            
+            {/* Centered Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+              <a href="#integrations" className="text-gray-600 hover:text-gray-900 transition-colors">Integrations</a>
+              <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+              <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
+            </div>
+            {/* Auth Buttons */}
             <div className="flex items-center space-x-4">
               <Link to="/auth">
                 <Button variant="ghost" className="text-gray-600">Log In</Button>
@@ -203,11 +206,11 @@ export default function LandingPage() {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Comprehensive CRM<br />
+                Comprehensive SyncAi<br />
                 <span className="text-gray-700">Tools for Your Team</span>
               </h1>
               <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-                Experience the perfect blend of power and simplicity. Connect your data, teams, and customers with our AI-driven CRM platform that scales with your business.
+                Experience the perfect blend of power and simplicity. Connect your data, teams, and customers with our AI-driven SyncAi platform that scales with your business.
               </p>
             </motion.div>
           </div>
@@ -239,15 +242,15 @@ export default function LandingPage() {
               <div className="flex items-center space-x-6 text-sm text-gray-600">
                 <div className="flex items-center space-x-2">
                   <FileText className="w-4 h-4" />
-                  <span>descript</span>
+                  <span>Description</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Users className="w-4 h-4" />
-                  <span>hotjar</span>
+                  <span>Contact Manager</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Target className="w-4 h-4" />
-                  <span>Segment</span>
+                  <span>Lead Segmentation</span>
                 </div>
               </div>
             </motion.div>
@@ -271,6 +274,12 @@ export default function LandingPage() {
                 <div className="h-6 bg-blue-500 rounded" style={{backgroundColor: '#3b82f6'}}></div>
                 <div className="h-10 bg-purple-500 rounded" style={{backgroundColor: '#8b5cf6'}}></div>
                 <div className="h-7 bg-orange-500 rounded" style={{backgroundColor: '#f59e0b'}}></div>
+              </div>
+              <div className="mt-3 flex justify-between text-xs text-gray-500">
+                <span>Q1</span>
+                <span>Q2</span>
+                <span>Q3</span>
+                <span>Q4</span>
               </div>
             </motion.div>
           </div>
@@ -318,7 +327,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section id="features" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -347,10 +356,10 @@ export default function LandingPage() {
       </section>
 
       {/* Integration Section */}
-      <section className="py-20 bg-green-600">
+      <section id="integrations" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center text-white mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Scale, flex, and innovate
             </h2>
           </div>
@@ -571,6 +580,31 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="py-16 bg-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Ready to get started?
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Join thousands of businesses using SyncAi to manage their client relationships
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/auth">
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
+                  Start Free Trial
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Button size="lg" variant="outline" className="px-8 py-3">
+                Schedule Demo
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -578,12 +612,12 @@ export default function LandingPage() {
             <div className="md:col-span-2">
               <div className="flex items-center space-x-2 mb-6">
                 <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">F</span>
+                  <span className="text-white font-bold text-sm">S</span>
                 </div>
-                <span className="text-2xl font-bold">FlowCRM</span>
+                <span className="text-2xl font-bold">SyncAi</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
-                The comprehensive CRM platform that helps freelancers and teams manage clients, track proposals, and grow their business efficiently.
+                The comprehensive SyncAi platform that helps freelancers and teams manage clients, track proposals, and grow their business efficiently.
               </p>
               <div className="flex space-x-4">
                 <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 cursor-pointer">
@@ -621,7 +655,7 @@ export default function LandingPage() {
           
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 FlowCRM. All rights reserved.
+              © 2024 SyncAi. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
