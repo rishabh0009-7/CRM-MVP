@@ -97,6 +97,7 @@ export function AppSidebar() {
         </div>
       </div>
 
+
       {/* Footer */}
       <div className="border-t border-gray-700 p-4">
         <div className="flex items-center">
